@@ -17,7 +17,7 @@ public class GridWorld implements Serializable {
         addBlocks();
         
     }
-    public void addBlocks() {
+    private void addBlocks() {
         // pick a random position and mark it as visited and unblocked
         Grid current = findRandomUnvisited();
         current.blocked = false;
