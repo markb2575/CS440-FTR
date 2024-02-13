@@ -83,6 +83,7 @@ public class GridWorld implements Serializable {
         return unvisited.get((int) (Math.random() * unvisited.size()));
     }
     public void clearKnowledge() {
+        agent.resetPosition();
         for (int i = 0; i < 101; i++) {
             for (int j = 0; j < 101; j++) {
                 gridWorld[i][j].knownBlocked = false;
@@ -110,12 +111,40 @@ public class GridWorld implements Serializable {
                 } else if (gridWorld[i][j].visited) {
                     System.out.print("=");
                 } else {
-                    System.out.print(" ");
+                    System.out.print("-");
                 }
             }
             System.out.println();
         }
-        System.out.println("X: Discovered Block    ?: Undiscovered Block    =: Visited    A: Agent    T: Target");
+        System.out.println("X: Discovered Block    ?: Undiscovered Block    -: Empty    =: Visited    A: Agent    T: Target");
+    }
+    public void display_small() {
+//        System.out.println(agent.getX() + " " + agent.getY());
+        for (int j = agent.getY()+5; j >= agent.getY()-5; j--) {
+            for (int i = agent.getX()-10; i < agent.getX()+10; i++) {
+                if (i < 0 || j < 0 || i > 100 || j > 100) continue;
+                if (i == agent.getX() && j == agent.getY()) {
+                    System.out.print("A");
+                    continue;
+                }
+                if (i == 100 && j == 100) {
+                    System.out.print("T");
+                    continue;
+                }
+                if (gridWorld[i][j].knownBlocked) {
+                    System.out.print("X");
+                } else if (gridWorld[i][j].blocked) {
+                    System.out.print("?");
+                } else if (gridWorld[i][j].visited) {
+                    System.out.print("=");
+                } else {
+                    System.out.print("-");
+                }
+            }
+            if (j < 0 || j > 100) continue;
+            System.out.println();
+        }
+        System.out.println("X: Discovered Block    ?: Undiscovered Block    -: Empty    =: Visited    A: Agent    T: Target");
     }
     public Grid get(int x, int y) {
         return gridWorld[x][y];

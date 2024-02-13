@@ -54,12 +54,12 @@ class FTR {
                     System.out.print("Invalid Input - ");
                 }
             } else {
+                gridWorlds[selectedGridWorld].clearKnowledge();
                 System.out.println("- Enter 'v' to view the real maze.\n- Enter 'p' to start visualization.\n- Enter 'b' to go back to grid-world selection.");
                 String line = scanner.nextLine();
                 if (line.equals("v")) {
                     gridWorlds[selectedGridWorld].display();
                 } else if (line.equals("p")) {
-                    gridWorlds[selectedGridWorld].clearKnowledge();
                     AStarSearch.repeated_forward_a_star(gridWorlds[selectedGridWorld]);
                     try {
                         FileOutputStream fos = new FileOutputStream("gridworlds.txt");

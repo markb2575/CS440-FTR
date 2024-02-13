@@ -29,8 +29,9 @@ public class AStarSearch {
             gridWorld.get(1,0).knownBlocked = true;
         }
         gridWorld.get(0,0).visited = true;
-        gridWorld.display();
-        while (agent.getX() != 100 && agent.getY() != 100) {
+        gridWorld.display_small();
+        boolean solvable = true;
+        while ((agent.getX() != 100 || agent.getY() != 100) && solvable == true) {
 //            System.out.println("calculating path");
             HashMap<Integer, PathNode> closedList = new HashMap<>();
             PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> Integer.compare(a.f, b.f));
@@ -41,7 +42,11 @@ public class AStarSearch {
             // while the closedList does not contain the id of the target square
             while (closedList.get(PathNode.coordsToId(100,100)) == null) {
                 PathNode current = openList.poll();
-                if (current == null) break;
+                if (current == null) {
+                    solvable = false;
+                    break;
+                };
+
 //                System.out.println("current: " + current.x + " " + current.y);
                 closedList.put(current.id, current);
                 // If the current node is not at x = 0 and the left node is not known blocked and the closed list does not contain the key
@@ -120,100 +125,101 @@ public class AStarSearch {
             }
             PathNode target = closedList.get(PathNode.coordsToId(100, 100));
             ArrayList<PathNode> path = new ArrayList<>();
+//            PathNode matchingNode = openList.stream().filter(node -> node.id == PathNode.coordsToId(100, 100)).findFirst().orElse(null);
+//            System.out.println(target.x + " " + target.y);
+            // Traverse the linked list in reverse order and add nodes to the ArrayList
+            while (target != null) {
+                path.add(target);
+                target = target.parent;
+            }
 
-            if (target == null) {
-                System.out.println("Could not find target");
-            } else {
-                // Traverse the linked list in reverse order and add nodes to the ArrayList
-                while (target != null) {
-                    path.add(target);
-                    target = target.parent;
-                }
+            // Reverse the ArrayList to get the path in forward order
+            Collections.reverse(path);
+            Scanner scanner = new Scanner(System.in);
+            // Actions
+            for (int i = 0; i < path.size() - 1; i++) {
+                PathNode current = path.get(i);
+                PathNode next = path.get(i + 1);
 
-                // Reverse the ArrayList to get the path in forward order
-                Collections.reverse(path);
-                Scanner scanner = new Scanner(System.in);
-                // Actions
-                for (int i = 0; i < path.size() - 1; i++) {
-                    PathNode current = path.get(i);
-                    PathNode next = path.get(i + 1);
-
-                    int deltaX = next.x - current.x;
-                    int deltaY = next.y - current.y;
+                int deltaX = next.x - current.x;
+                int deltaY = next.y - current.y;
 
 
 
 //                    System.out.println(current.x + " " + current.y);
 //                    System.out.println(next.x + " " + next.y);
-                    if (deltaX == 1 && deltaY == 0) {
-                        // Move right
-                        if (agent.canMoveRight()) {
-                            agent.moveRight();
-                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+                if (deltaX == 1 && deltaY == 0) {
+                    // Move right
+                    if (agent.canMoveRight()) {
+                        agent.moveRight();
+                        gridWorld.get(agent.getX(), agent.getY()).visited = true;
 //                            System.out.println("move right");
-                        } else {
+                    } else {
 //                            System.out.println("could not move right");
-                            break;
-                        }
+                        break;
+                    }
 
-                    } else if (deltaX == -1 && deltaY == 0) {
-                        // Move left
-                        if (agent.canMoveLeft()) {
-                            agent.moveLeft();
-                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+                } else if (deltaX == -1 && deltaY == 0) {
+                    // Move left
+                    if (agent.canMoveLeft()) {
+                        agent.moveLeft();
+                        gridWorld.get(agent.getX(), agent.getY()).visited = true;
 //                            System.out.println("move left");
-                        } else {
+                    } else {
 //                            System.out.println("could not move left");
-                            break;
-                        }
+                        break;
+                    }
 
-                    } else if (deltaX == 0 && deltaY == -1) {
-                        // Move down
-                        if (agent.canMoveDown()) {
-                            agent.moveDown();
-                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+                } else if (deltaX == 0 && deltaY == -1) {
+                    // Move down
+                    if (agent.canMoveDown()) {
+                        agent.moveDown();
+                        gridWorld.get(agent.getX(), agent.getY()).visited = true;
 //                            System.out.println("move down");
-                        } else {
+                    } else {
 //                            System.out.println("could not move down");
-                            break;
-                        }
+                        break;
+                    }
 
-                    } else if (deltaX == 0 && deltaY == 1) {
-                        // Move up
-                        if (agent.canMoveUp()) {
-                            agent.moveUp();
-                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+                } else if (deltaX == 0 && deltaY == 1) {
+                    // Move up
+                    if (agent.canMoveUp()) {
+                        agent.moveUp();
+                        gridWorld.get(agent.getX(), agent.getY()).visited = true;
 //                            System.out.println("move up");
-                        } else {
+                    } else {
 //                            System.out.println("could not move up");
-                            break;
-                        }
-                    }
-                    // Look around agent for each move and mark any blocked grids as known
-                    if (!agent.canMoveUp() && agent.getY() != 100) {
-                        gridWorld.get(agent.getX(), agent.getY() + 1).knownBlocked = true;
-                    }
-                    if (!agent.canMoveRight() && agent.getX() != 100) {
-                        gridWorld.get(agent.getX() + 1, agent.getY()).knownBlocked = true;
-                    }
-                    if (!agent.canMoveDown() && agent.getY() != 0) {
-                        gridWorld.get(agent.getX(), agent.getY() - 1).knownBlocked = true;
-                    }
-                    if (!agent.canMoveLeft() && agent.getX() != 0) {
-                        gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
-                    }
-                    System.out.println("Enter 'n' to view next step");
-                    String line = scanner.nextLine();
-                    if (line.equals("n")) {
-                        gridWorld.display();
+                        break;
                     }
                 }
+                // Look around agent for each move and mark any blocked grids as known
+                if (!agent.canMoveUp() && agent.getY() != 100) {
+                    gridWorld.get(agent.getX(), agent.getY() + 1).knownBlocked = true;
+                }
+                if (!agent.canMoveRight() && agent.getX() != 100) {
+                    gridWorld.get(agent.getX() + 1, agent.getY()).knownBlocked = true;
+                }
+                if (!agent.canMoveDown() && agent.getY() != 0) {
+                    gridWorld.get(agent.getX(), agent.getY() - 1).knownBlocked = true;
+                }
+                if (!agent.canMoveLeft() && agent.getX() != 0) {
+                    gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
+                }
+            }
+            System.out.println("Enter 'n' to view next step.");
+            String line = scanner.nextLine();
+            if (line.equals("n")) {
+                gridWorld.display_small();
             }
 
 
-
         }
-
+        gridWorld.display();
+        if (agent.getX() == 100 && agent.getY() == 100) {
+            System.out.println("Found target.");
+        } else {
+            System.out.println("Could not find target.");
+        }
 //        // while loop here
 //        // if the grid has no parent set g to 0 because it is the starting grid
 //        if (gridWorld.get(agent.getX(), agent.getY()).parent == -1) {

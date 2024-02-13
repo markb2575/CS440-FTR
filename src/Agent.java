@@ -50,4 +50,9 @@ public class Agent implements Serializable {
     public int getY() {
         return y;
     }
+
+    public void resetPosition() {
+        x = 0;
+        y = 0;
+    }
 }
