@@ -10,7 +10,7 @@ public class Grid implements Serializable {
     int y;                   // y coordinate of grid in gridworld
     boolean blocked;         // indicates whether the grid is a block or empty
     boolean knownBlocked;    // indicates whether the agent knows that this grid is blocked
-    boolean visited = false; // Used to create the maze
+    boolean visited = false; // Used to create the maze and used to show where agent has been
     public Grid(int x, int y) {
         this.x = x;
         this.y = y;

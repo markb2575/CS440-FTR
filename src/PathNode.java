@@ -33,6 +33,7 @@ public class PathNode {
             g = parent.g + 1;
         }
         h = Math.abs(x - 101) + Math.abs(y - 101);
+        this.f = h + g;
         this.parent = parent;
         this.x = x;
         this.y = y;

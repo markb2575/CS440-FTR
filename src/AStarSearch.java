@@ -28,17 +28,25 @@ public class AStarSearch {
         if (!agent.canMoveRight()) {
             gridWorld.get(1,0).knownBlocked = true;
         }
+        gridWorld.get(0,0).visited = true;
+        gridWorld.display();
         while (agent.getX() != 100 && agent.getY() != 100) {
+//            System.out.println("calculating path");
             HashMap<Integer, PathNode> closedList = new HashMap<>();
             PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> Integer.compare(a.f, b.f));
             openList.add(new PathNode(null, agent.getX(), agent.getY()));
+
+//            openList.forEach(element -> System.out.println("(" + element.x + "," + element.y + ") f: " + element.f));
+
             // while the closedList does not contain the id of the target square
             while (closedList.get(PathNode.coordsToId(100,100)) == null) {
                 PathNode current = openList.poll();
                 if (current == null) break;
+//                System.out.println("current: " + current.x + " " + current.y);
                 closedList.put(current.id, current);
                 // If the current node is not at x = 0 and the left node is not known blocked and the closed list does not contain the key
                 if (current.x != 0 && !gridWorld.get(current.x - 1, current.y).knownBlocked && !closedList.containsKey(PathNode.coordsToId(current.x - 1, current.y))) {
+//                    System.out.println("can move left");
                     PathNode matchingNode = openList.stream().filter(node -> node.id == PathNode.coordsToId(current.x - 1, current.y)).findFirst().orElse(null);
                     if (matchingNode == null) {
                         // If node is not in openList add it
@@ -48,12 +56,15 @@ public class AStarSearch {
                         if (current.g + 1 < matchingNode.g) {
                             openList.remove(matchingNode);
                             matchingNode.g = current.g + 1;
+                            matchingNode.f = matchingNode.g + matchingNode.h;
+                            matchingNode.parent = current;
                             openList.add(matchingNode);
                         }
                     }
                 }
                 // If the current node is not at x = 100 and the right node is not known blocked and the closed list does not contain the key
                 if (current.x != 100 && !gridWorld.get(current.x + 1, current.y).knownBlocked && !closedList.containsKey(PathNode.coordsToId(current.x + 1, current.y))) {
+//                    System.out.println("can move right");
                     PathNode matchingNode = openList.stream().filter(node -> node.id == PathNode.coordsToId(current.x + 1, current.y)).findFirst().orElse(null);
                     if (matchingNode == null) {
                         // If node is not in openList add it
@@ -63,12 +74,15 @@ public class AStarSearch {
                         if (current.g + 1 < matchingNode.g) {
                             openList.remove(matchingNode);
                             matchingNode.g = current.g + 1;
+                            matchingNode.f = matchingNode.g + matchingNode.h;
+                            matchingNode.parent = current;
                             openList.add(matchingNode);
                         }
                     }
                 }
                 // If the current node is not at y = 0 and the lower node is not known blocked and the closed list does not contain the key
                 if (current.y != 0 && !gridWorld.get(current.x, current.y - 1).knownBlocked && !closedList.containsKey(PathNode.coordsToId(current.x, current.y - 1))) {
+//                    System.out.println("can move down");
                     PathNode matchingNode = openList.stream().filter(node -> node.id == PathNode.coordsToId(current.x, current.y - 1)).findFirst().orElse(null);
                     if (matchingNode == null) {
                         // If node is not in openList add it
@@ -78,12 +92,15 @@ public class AStarSearch {
                         if (current.g + 1 < matchingNode.g) {
                             openList.remove(matchingNode);
                             matchingNode.g = current.g + 1;
+                            matchingNode.f = matchingNode.g + matchingNode.h;
+                            matchingNode.parent = current;
                             openList.add(matchingNode);
                         }
                     }
                 }
                 // If the current node is not at y = 100 and the upper node is not known blocked and the closed list does not contain the key
                 if (current.y != 100 && !gridWorld.get(current.x, current.y + 1).knownBlocked && !closedList.containsKey(PathNode.coordsToId(current.x, current.y + 1))) {
+//                    System.out.println("can move up");
                     PathNode matchingNode = openList.stream().filter(node -> node.id == PathNode.coordsToId(current.x, current.y + 1)).findFirst().orElse(null);
                     if (matchingNode == null) {
                         // If node is not in openList add it
@@ -117,22 +134,25 @@ public class AStarSearch {
                 Collections.reverse(path);
                 Scanner scanner = new Scanner(System.in);
                 // Actions
-                gridWorld.display();
                 for (int i = 0; i < path.size() - 1; i++) {
                     PathNode current = path.get(i);
                     PathNode next = path.get(i + 1);
 
                     int deltaX = next.x - current.x;
                     int deltaY = next.y - current.y;
+
+
+
 //                    System.out.println(current.x + " " + current.y);
 //                    System.out.println(next.x + " " + next.y);
                     if (deltaX == 1 && deltaY == 0) {
                         // Move right
                         if (agent.canMoveRight()) {
                             agent.moveRight();
+                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+//                            System.out.println("move right");
                         } else {
-                            gridWorld.get(agent.getX() + 1,agent.getY()).knownBlocked = true;
-                            System.out.println("move right");
+//                            System.out.println("could not move right");
                             break;
                         }
 
@@ -140,9 +160,10 @@ public class AStarSearch {
                         // Move left
                         if (agent.canMoveLeft()) {
                             agent.moveLeft();
+                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+//                            System.out.println("move left");
                         } else {
-                            gridWorld.get(agent.getX() - 1,agent.getY()).knownBlocked = true;
-                            System.out.println("move left");
+//                            System.out.println("could not move left");
                             break;
                         }
 
@@ -150,9 +171,10 @@ public class AStarSearch {
                         // Move down
                         if (agent.canMoveDown()) {
                             agent.moveDown();
+                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+//                            System.out.println("move down");
                         } else {
-                            gridWorld.get(agent.getX(),agent.getY() - 1).knownBlocked = true;
-                            System.out.println("move down");
+//                            System.out.println("could not move down");
                             break;
                         }
 
@@ -160,13 +182,27 @@ public class AStarSearch {
                         // Move up
                         if (agent.canMoveUp()) {
                             agent.moveUp();
+                            gridWorld.get(agent.getX(), agent.getY()).visited = true;
+//                            System.out.println("move up");
                         } else {
-                            gridWorld.get(agent.getX(),agent.getY() + 1).knownBlocked = true;
-                            System.out.println("move up");
+//                            System.out.println("could not move up");
                             break;
                         }
                     }
-                    System.out.println("Enter n to view next step");
+                    // Look around agent for each move and mark any blocked grids as known
+                    if (!agent.canMoveUp() && agent.getY() != 100) {
+                        gridWorld.get(agent.getX(), agent.getY() + 1).knownBlocked = true;
+                    }
+                    if (!agent.canMoveRight() && agent.getX() != 100) {
+                        gridWorld.get(agent.getX() + 1, agent.getY()).knownBlocked = true;
+                    }
+                    if (!agent.canMoveDown() && agent.getY() != 0) {
+                        gridWorld.get(agent.getX(), agent.getY() - 1).knownBlocked = true;
+                    }
+                    if (!agent.canMoveLeft() && agent.getX() != 0) {
+                        gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
+                    }
+                    System.out.println("Enter 'n' to view next step");
                     String line = scanner.nextLine();
                     if (line.equals("n")) {
                         gridWorld.display();

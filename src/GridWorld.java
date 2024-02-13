@@ -86,14 +86,15 @@ public class GridWorld implements Serializable {
         for (int i = 0; i < 101; i++) {
             for (int j = 0; j < 101; j++) {
                 gridWorld[i][j].knownBlocked = false;
+                gridWorld[i][j].visited = false;
             }
         }
     }
     //This prints the real maze
     public void display() {
-        System.out.println(agent.getX() + " " + agent.getY());
+//        System.out.println(agent.getX() + " " + agent.getY());
         for (int j = 100; j >= 0; j--) {
-            for (int i = 0; i < 101; i++) {                
+            for (int i = 0; i < 101; i++) {
                 if (i == agent.getX() && j == agent.getY()) {
                     System.out.print("A");
                     continue;
@@ -102,14 +103,19 @@ public class GridWorld implements Serializable {
                     System.out.print("T");
                     continue;
                 }
-                if (gridWorld[i][j].blocked) {
+                if (gridWorld[i][j].knownBlocked) {
                     System.out.print("X");
+                } else if (gridWorld[i][j].blocked) {
+                    System.out.print("?");
+                } else if (gridWorld[i][j].visited) {
+                    System.out.print("=");
                 } else {
-                    System.out.print("-");
+                    System.out.print(" ");
                 }
             }
             System.out.println();
         }
+        System.out.println("X: Discovered Block    ?: Undiscovered Block    =: Visited    A: Agent    T: Target");
     }
     public Grid get(int x, int y) {
         return gridWorld[x][y];
