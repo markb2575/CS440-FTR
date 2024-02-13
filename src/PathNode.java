@@ -2,9 +2,12 @@
 
 public class PathNode {
 
+    int x;
+
+    int y;
     int id;     // Calculated from its coordinates
 
-    int parent; // id of the parent (previous) square, calculated from its coordinates
+    PathNode parent; // id of the parent (previous) square, calculated from its coordinates
 
     int g;      // Path length from start to this node
 
@@ -23,5 +26,17 @@ public class PathNode {
         return id / 101;
     }
 
+    public PathNode(PathNode parent, int x, int y) {
+        if (parent == null) {
+            g = 0;
+        } else {
+            g = parent.g + 1;
+        }
+        h = Math.abs(x - 101) + Math.abs(y - 101);
+        this.parent = parent;
+        this.x = x;
+        this.y = y;
+        id = (101 * y) + x;
+    }
 
 }

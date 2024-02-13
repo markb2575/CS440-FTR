@@ -3,7 +3,7 @@ import java.io.Serializable;
 public class Agent implements Serializable {
     private int x;
     private int y;
-    Grid[][] gridWorld;
+    private Grid[][] gridWorld;
     public Agent(Grid[][] gridWorld) {
         this.gridWorld = gridWorld;
         this.x = 0;
@@ -11,15 +11,19 @@ public class Agent implements Serializable {
     }
     public void moveLeft () {
         if (canMoveLeft()) x -= 1;
+//        System.out.println(x + " " + y);
     }
     public void moveRight () {
         if (canMoveRight()) x += 1;
+//        System.out.println(x + " " + y);
     }
     public void moveDown () {
         if (canMoveDown()) y -= 1;
+//        System.out.println(x + " " + y);
     }
     public void moveUp () {
         if (canMoveUp()) y += 1;
+//        System.out.println(x + " " + y);
     }
     /* 
      * These look methods return true for unblocked and false for blocked

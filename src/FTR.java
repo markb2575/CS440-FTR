@@ -59,6 +59,7 @@ class FTR {
                 if (line.equals("v")) {
                     gridWorlds[selectedGridWorld].display();
                 } else if (line.equals("p")) {
+                    gridWorlds[selectedGridWorld].clearKnowledge();
                     AStarSearch.repeated_forward_a_star(gridWorlds[selectedGridWorld]);
                     try {
                         FileOutputStream fos = new FileOutputStream("gridworlds.txt");
