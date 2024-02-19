@@ -32,12 +32,24 @@ public class PathNode {
         } else {
             g = parent.g + 1;
         }
-        h = Math.abs(x - 101) + Math.abs(y - 101);
+        h = Math.abs(x - 100) + Math.abs(y - 100);
         this.f = h + g;
         this.parent = parent;
         this.x = x;
         this.y = y;
         id = (101 * y) + x;
     }
-
+    public PathNode(PathNode parent, int x, int y, int agentX, int agentY) {
+        if (parent == null) {
+            g = 0;
+        } else {
+            g = parent.g + 1;
+        }
+        h = Math.abs(x - agentX) + Math.abs(y - agentY);
+        this.f = h + g;
+        this.parent = parent;
+        this.x = x;
+        this.y = y;
+        id = (101 * y) + x;
+    }
 }
