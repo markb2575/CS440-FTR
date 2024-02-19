@@ -60,16 +60,29 @@ class FTR {
                 if (line.equals("v")) {
                     gridWorlds[selectedGridWorld].display();
                 } else if (line.equals("p")) {
-                    AStarSearch.repeated_forward_a_star(gridWorlds[selectedGridWorld]);
-                    try {
-                        FileOutputStream fos = new FileOutputStream("gridworlds.txt");
-                        ObjectOutputStream oos = new ObjectOutputStream(fos);
-                        oos.writeObject(gridWorlds);
-                        oos.close();
-                        // System.out.println("Successfully saved gridworlds to a file.");
-                    } catch(Exception e) {
-                        System.out.println("Could not save grid worlds to a file.");
+                    while (true) {
+                        gridWorlds[selectedGridWorld].clearKnowledge();
+                        System.out.println("- Select an algorithm:\n- '1': Repeated Forward A* (Favor small g-value).\n- '2': Repeated Forward A* (Favor large g-value).\n- 'b': to go back");
+                        String selectedAlgorithm = scanner.nextLine();
+                        if (selectedAlgorithm.equals("1")) {
+                            AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[selectedGridWorld]);
+                        } else if (selectedAlgorithm.equals("2")) {
+                            AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[selectedGridWorld]);
+                        } else if (selectedAlgorithm.equals("b")) {
+                            break;
+                        } else {
+                            System.out.println("Invalid Input");
+                        }
                     }
+//                    try {
+//                        FileOutputStream fos = new FileOutputStream("gridworlds.txt");
+//                        ObjectOutputStream oos = new ObjectOutputStream(fos);
+//                        oos.writeObject(gridWorlds);
+//                        oos.close();
+//                        // System.out.println("Successfully saved gridworlds to a file.");
+//                    } catch(Exception e) {
+//                        System.out.println("Could not save grid worlds to a file.");
+//                    }
                 } else if (line.equals("b")) {
                     selectedGridWorld = -1;
                 } else {
