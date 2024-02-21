@@ -173,14 +173,18 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
+            if (agent.getY() != 100 && agent.getY() != 100) {
+                gridWorld.clearVisited();
+            }
 //            System.out.println("Enter 'n' to view next step.");
 //            String line = scanner.nextLine();
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
         }
-        System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
         gridWorld.display();
+        System.out.println("Execution time: " + executionTime + " seconds");
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;
@@ -355,14 +359,19 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
+            if (agent.getY() != 100 && agent.getY() != 100) {
+                gridWorld.clearVisited();
+            }
+
 //            System.out.println("Enter 'n' to view next step.");
 //            String line = scanner.nextLine();
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
         }
-        System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
         gridWorld.display();
+        System.out.println("Execution time: " + executionTime + " seconds");
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;
@@ -536,14 +545,18 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
+            if (agent.getY() != 100 && agent.getY() != 100) {
+                gridWorld.clearVisited();
+            }
 //            System.out.println("Enter 'n' to view next step.");
 //            String line = scanner.nextLine();
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
         }
-        System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
         gridWorld.display();
+        System.out.println("Execution time: " + executionTime + " seconds");
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;
@@ -752,14 +765,18 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
+            if (agent.getY() != 100 && agent.getY() != 100) {
+                gridWorld.clearVisited();
+            }
 //            System.out.println("Enter 'n' to view next step.");
 //            String line = scanner.nextLine();
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
         }
-        System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
         gridWorld.display();
+        System.out.println("Execution time: " + executionTime + " seconds");
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;

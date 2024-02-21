@@ -91,6 +91,14 @@ public class GridWorld implements Serializable {
             }
         }
     }
+    public void clearVisited() {
+        agent.resetPosition();
+        for (int i = 0; i < 101; i++) {
+            for (int j = 0; j < 101; j++) {
+                gridWorld[i][j].visited = false;
+            }
+        }
+    }
     //This prints the real maze
     public void display() {
 //        System.out.println(agent.getX() + " " + agent.getY());
