@@ -26,6 +26,11 @@ public class PathNode {
         return id / 101;
     }
 
+    public void updateNode(int h) {     //Used in adaptive a* to update a node's h and f values
+        this.h = h;
+        this.f = this.g + h;
+    }
+
     public PathNode(PathNode parent, int x, int y) {
         if (parent == null) {
             g = 0;
@@ -33,6 +38,20 @@ public class PathNode {
             g = parent.g + 1;
         }
         h = Math.abs(x - 100) + Math.abs(y - 100);
+        this.f = h + g;
+        this.parent = parent;
+        this.x = x;
+        this.y = y;
+        id = (101 * y) + x;
+    }
+
+    public PathNode(PathNode parent, int x, int y, int h) {
+        if (parent == null) {
+            g = 0;
+        } else {
+            g = parent.g + 1;
+        }
+        this.h = h;
         this.f = h + g;
         this.parent = parent;
         this.x = x;

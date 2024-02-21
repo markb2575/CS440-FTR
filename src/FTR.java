@@ -62,7 +62,7 @@ class FTR {
                 } else if (line.equals("p")) {
                     while (true) {
                         gridWorlds[selectedGridWorld].clearKnowledge();
-                        System.out.println("- Select an algorithm:\n- '1': Repeated Forward A* (Favor small g-value).\n- '2': Repeated Forward A* (Favor large g-value).\n- '3': Repeated Backward A*.\n- 'b': to go back");
+                        System.out.println("- Select an algorithm:\n- '1': Repeated Forward A* (Favor small g-value).\n- '2': Repeated Forward A* (Favor large g-value).\n- '3': Repeated Backward A*.\n- '4': Adaptive A*.\n- 'b': to go back");
                         String selectedAlgorithm = scanner.nextLine();
                         if (selectedAlgorithm.equals("1")) {
                             AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[selectedGridWorld]);
@@ -70,6 +70,8 @@ class FTR {
                             AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[selectedGridWorld]);
                         } else if (selectedAlgorithm.equals("3")) {
                             AStarSearch.repeated_backward_a_star(gridWorlds[selectedGridWorld]);
+                        } else if (selectedAlgorithm.equals("4")) {
+                            AStarSearch.adaptive_a_star(gridWorlds[selectedGridWorld]);
                         } else if (selectedAlgorithm.equals("b")) {
                             break;
                         } else {
