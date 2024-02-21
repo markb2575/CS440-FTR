@@ -179,8 +179,8 @@ public class AStarSearch {
 //                gridWorld.display_small();
 //            }
         }
-        gridWorld.display();
         System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        gridWorld.display();
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;
@@ -361,8 +361,8 @@ public class AStarSearch {
 //                gridWorld.display_small();
 //            }
         }
-        gridWorld.display();
         System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        gridWorld.display();
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;
@@ -542,8 +542,8 @@ public class AStarSearch {
 //                gridWorld.display_small();
 //            }
         }
-        gridWorld.display();
         System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        gridWorld.display();
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;
@@ -571,9 +571,9 @@ public class AStarSearch {
 
         while ((agent.getX() != 100 || agent.getY() != 100) && solvable) {
             HashMap<Integer, PathNode> closedList = new HashMap<>();
-            PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> { // Top priority is smallest f-value and smallest g-value
+            PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> { // Top priority is smallest f-value and largest g-value (which also mean smallest h-value)
                 if (a.f == b.f) {
-                    return Integer.compare(a.g, b.g);
+                    return Integer.compare(b.g, a.g);
                 }
                 return Integer.compare(a.f, b.f);
             });
@@ -758,8 +758,8 @@ public class AStarSearch {
 //                gridWorld.display_small();
 //            }
         }
-        gridWorld.display();
         System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
+        gridWorld.display();
         if (agent.getX() == 100 && agent.getY() == 100) {
             System.out.println("Found target.");
             return true;
