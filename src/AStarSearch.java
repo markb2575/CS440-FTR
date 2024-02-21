@@ -173,7 +173,7 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
-            if (agent.getY() != 100 && agent.getY() != 100) {
+            if (agent.getX() != 100 && agent.getY() != 100) {
                 gridWorld.clearVisited();
             }
 //            System.out.println("Enter 'n' to view next step.");
@@ -359,7 +359,7 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
-            if (agent.getY() != 100 && agent.getY() != 100) {
+            if (agent.getX() != 100 && agent.getY() != 100) {
                 gridWorld.clearVisited();
             }
 
@@ -545,7 +545,7 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
-            if (agent.getY() != 100 && agent.getY() != 100) {
+            if (agent.getX() != 100 && agent.getY() != 100) {
                 gridWorld.clearVisited();
             }
 //            System.out.println("Enter 'n' to view next step.");
@@ -765,7 +765,7 @@ public class AStarSearch {
                     gridWorld.get(agent.getX() - 1, agent.getY()).knownBlocked = true;
                 }
             }
-            if (agent.getY() != 100 && agent.getY() != 100) {
+            if (agent.getX() != 100 && agent.getY() != 100) {
                 gridWorld.clearVisited();
             }
 //            System.out.println("Enter 'n' to view next step.");
