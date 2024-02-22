@@ -20,8 +20,11 @@ public class AStarSearch {
         gridWorld.get(0,0).visited = true;
 //        gridWorld.display_small();
         boolean solvable = true;
-        boolean completed = false;
+        int prevStep = -1;
         while ((agent.getX() != 100 || agent.getY() != 100) && solvable) {
+            if (prevStep == 9) prevStep = -1;
+            gridWorld.get(agent.getX(), agent.getY()).step = prevStep + 1;
+            prevStep++;
             HashMap<Integer, PathNode> closedList = new HashMap<>();
             PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> { // Top priority is smallest f-value and smallest g-value
                 if (a.f == b.f) {
@@ -205,7 +208,11 @@ public class AStarSearch {
         gridWorld.get(0,0).visited = true;
 //        gridWorld.display_small();
         boolean solvable = true;
+        int prevStep = -1;
         while ((agent.getX() != 100 || agent.getY() != 100) && solvable) {
+            if (prevStep == 9) prevStep = -1;
+            gridWorld.get(agent.getX(), agent.getY()).step = prevStep + 1;
+            prevStep++;
             HashMap<Integer, PathNode> closedList = new HashMap<>();
             PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> { // Top priority is smallest f-value and largest g-value (which also mean smallest h-value)
                 if (a.f == b.f) {
@@ -391,7 +398,11 @@ public class AStarSearch {
         gridWorld.get(0,0).visited = true;
 //        gridWorld.display_small();
         boolean solvable = true;
+        int prevStep = -1;
         while ((agent.getX() != 100 || agent.getY() != 100) && solvable) {
+            if (prevStep == 9) prevStep = -1;
+            gridWorld.get(agent.getX(), agent.getY()).step = prevStep + 1;
+            prevStep++;
             HashMap<Integer, PathNode> closedList = new HashMap<>();
             PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> { // Top priority is smallest f-value and largest g-value (which also mean smallest h-value)
                 if (a.f == b.f) {
@@ -578,8 +589,11 @@ public class AStarSearch {
 
         //Initialize a persistent hashmap to store each h value to make it easier to update
         HashMap<Integer, Integer> h_vals = new HashMap<>();
-
+        int prevStep = -1;
         while ((agent.getX() != 100 || agent.getY() != 100) && solvable) {
+            if (prevStep == 9) prevStep = -1;
+            gridWorld.get(agent.getX(), agent.getY()).step = prevStep + 1;
+            prevStep++;
             HashMap<Integer, PathNode> closedList = new HashMap<>();
             PriorityQueue<PathNode> openList = new PriorityQueue<>((a, b) -> { // Top priority is smallest f-value and largest g-value (which also mean smallest h-value)
                 if (a.f == b.f) {
