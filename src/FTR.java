@@ -38,21 +38,69 @@ class FTR {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             if (selectedGridWorld == -1) {
-                System.out.println("Select a grid-world from 1 - 50 OR Enter 'e' to exit:");
+                System.out.println("Select a grid-world from 1 - 50 OR Enter 'a' to test all grids OR Enter 'e' to exit:");
                 String line = scanner.nextLine();
                 if (line.equals("e")) {
                     break;
                 }
-                try {
-                    if (Integer.valueOf(line) > 50 || Integer.valueOf(line) < 1) {
-                        System.out.print("Invalid Input - ");
-                        continue;
+                if (line.equals("a")) {
+                    long startTime = System.currentTimeMillis();
+                    for (int i = 0; i < 50; i ++) {
+                        System.out.print("\r");
+                        System.out.print("repeated_forward_a_star_favor_small_g: "+ (i + 1) + "/50");
+                        AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[i], false);
                     }
-                    selectedGridWorld = Integer.valueOf(line) - 1;
-                    continue;
-                } catch (NumberFormatException e) {
-                    System.out.print("Invalid Input - ");
+                    double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
+                    for (int i = 0; i < 50; i ++) {
+                        gridWorlds[i].clearKnowledge();
+                    }
+                    System.out.println("\nAverage Execution Time (in seconds) of repeated_forward_a_star_favor_small_g: " + (executionTime / 50));
+                    startTime = System.currentTimeMillis();
+                    for (int i = 0; i < 50; i ++) {
+                        System.out.print("\r");
+                        System.out.print("repeated_forward_a_star_favor_large_g: "+ (i + 1) + "/50");
+                        AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[i], false);
+                    }
+                    executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
+                    for (int i = 0; i < 50; i ++) {
+                        gridWorlds[i].clearKnowledge();
+                    }
+                    System.out.println("\nAverage Execution Time (in seconds) of repeated_forward_a_star_favor_large_g: " + (executionTime / 50));
+                    startTime = System.currentTimeMillis();
+                    for (int i = 0; i < 50; i ++) {
+                        System.out.print("\r");
+                        System.out.print("repeated_backward_a_star: "+ (i + 1) + "/50");
+                        AStarSearch.repeated_backward_a_star(gridWorlds[i], false);
+                    }
+                    executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
+                    for (int i = 0; i < 50; i ++) {
+                        gridWorlds[i].clearKnowledge();
+                    }
+                    System.out.println("\nAverage Execution Time (in seconds) of repeated_backward_a_star: " + (executionTime / 50));
+                    startTime = System.currentTimeMillis();
+                    for (int i = 0; i < 50; i ++) {
+                        System.out.print("\r");
+                        System.out.print("adaptive_a_star: "+ (i + 1) + "/50");
+                        AStarSearch.adaptive_a_star(gridWorlds[i], false);
+                    }
+                    executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
+                    for (int i = 0; i < 50; i ++) {
+                        gridWorlds[i].clearKnowledge();
+                    }
+                    System.out.println("\nAverage Execution Time (in seconds) of adaptive_a_star: " + (executionTime / 50));
+                } else {
+                    try {
+                        if (Integer.valueOf(line) > 50 || Integer.valueOf(line) < 1) {
+                            System.out.print("Invalid Input - ");
+                            continue;
+                        }
+                        selectedGridWorld = Integer.valueOf(line) - 1;
+                        continue;
+                    } catch (NumberFormatException e) {
+                        System.out.print("Invalid Input - ");
+                    }
                 }
+
             } else {
                 gridWorlds[selectedGridWorld].clearKnowledge();
                 System.out.println("- Enter 'v' to view the real maze.\n- Enter 'p' to start visualization.\n- Enter 'b' to go back to grid-world selection.");
@@ -65,13 +113,13 @@ class FTR {
                         System.out.println("- Select an algorithm:\n- '1': Repeated Forward A* (Favor small g-value).\n- '2': Repeated Forward A* (Favor large g-value).\n- '3': Repeated Backward A*.\n- '4': Adaptive A*.\n- 'b': to go back");
                         String selectedAlgorithm = scanner.nextLine();
                         if (selectedAlgorithm.equals("1")) {
-                            AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[selectedGridWorld]);
+                            AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[selectedGridWorld], true);
                         } else if (selectedAlgorithm.equals("2")) {
-                            AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[selectedGridWorld]);
+                            AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[selectedGridWorld], true);
                         } else if (selectedAlgorithm.equals("3")) {
-                            AStarSearch.repeated_backward_a_star(gridWorlds[selectedGridWorld]);
+                            AStarSearch.repeated_backward_a_star(gridWorlds[selectedGridWorld], true);
                         } else if (selectedAlgorithm.equals("4")) {
-                            AStarSearch.adaptive_a_star(gridWorlds[selectedGridWorld]);
+                            AStarSearch.adaptive_a_star(gridWorlds[selectedGridWorld], true);
                         } else if (selectedAlgorithm.equals("b")) {
                             break;
                         } else {
