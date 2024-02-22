@@ -45,49 +45,61 @@ class FTR {
                 }
                 if (line.equals("a")) {
                     long startTime = System.currentTimeMillis();
+                    int expandedCells = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("repeated_forward_a_star_favor_small_g: "+ (i + 1) + "/50");
-                        AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[i], false);
+                        expandedCells += AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[i], false);
                     }
                     double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
-                    System.out.println("\nAverage Execution Time (in seconds) of repeated_forward_a_star_favor_small_g: " + (executionTime / 50));
+                    System.out.print("\r");
+                    System.out.print("Average Execution Time (in seconds) of repeated_forward_a_star_favor_small_g: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println();
                     startTime = System.currentTimeMillis();
+                    expandedCells = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("repeated_forward_a_star_favor_large_g: "+ (i + 1) + "/50");
-                        AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[i], false);
+                        expandedCells += AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[i], false);
                     }
                     executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
-                    System.out.println("\nAverage Execution Time (in seconds) of repeated_forward_a_star_favor_large_g: " + (executionTime / 50));
+                    System.out.print("\r");
+                    System.out.print("Average Execution Time (in seconds) of repeated_forward_a_star_favor_large_g: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println();
                     startTime = System.currentTimeMillis();
+                    expandedCells = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("repeated_backward_a_star: "+ (i + 1) + "/50");
-                        AStarSearch.repeated_backward_a_star(gridWorlds[i], false);
+                        expandedCells += AStarSearch.repeated_backward_a_star(gridWorlds[i], false);
                     }
                     executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
-                    System.out.println("\nAverage Execution Time (in seconds) of repeated_backward_a_star: " + (executionTime / 50));
+                    System.out.print("\r");
+                    System.out.print("Average Execution Time (in seconds) of repeated_backward_a_star: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println();
                     startTime = System.currentTimeMillis();
+                    expandedCells = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("adaptive_a_star: "+ (i + 1) + "/50");
-                        AStarSearch.adaptive_a_star(gridWorlds[i], false);
+                        expandedCells += AStarSearch.adaptive_a_star(gridWorlds[i], false);
                     }
                     executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
-                    System.out.println("\nAverage Execution Time (in seconds) of adaptive_a_star: " + (executionTime / 50));
+                    System.out.print("\r");
+                    System.out.print("Average Execution Time (in seconds) of adaptive_a_star: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println();
                 } else {
                     try {
                         if (Integer.valueOf(line) > 50 || Integer.valueOf(line) < 1) {

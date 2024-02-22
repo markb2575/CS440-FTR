@@ -7,7 +7,8 @@ public class AStarSearch {
     
 
 
-    public static boolean repeated_forward_a_star_favor_small_g(GridWorld gridWorld, boolean printEnabled) {
+    public static int repeated_forward_a_star_favor_small_g(GridWorld gridWorld, boolean printEnabled) {
+        int expandedCells = 0;
         long startTime = System.currentTimeMillis();
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
@@ -182,6 +183,7 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
+            expandedCells += closedList.size();
         }
         if (printEnabled) {
             double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
@@ -190,12 +192,13 @@ public class AStarSearch {
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return true;
+            return expandedCells;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return false;
+        return expandedCells;
     }
-    public static boolean repeated_forward_a_star_favor_large_g(GridWorld gridWorld, boolean printEnabled) {
+    public static int repeated_forward_a_star_favor_large_g(GridWorld gridWorld, boolean printEnabled) {
+        int expandedCells = 0;
         long startTime = System.currentTimeMillis();
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
@@ -371,6 +374,7 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
+            expandedCells += closedList.size();
         }
         if (printEnabled) {
             double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
@@ -379,13 +383,14 @@ public class AStarSearch {
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return true;
+            return expandedCells;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return false;
+        return expandedCells;
     }
 
-    public static boolean repeated_backward_a_star(GridWorld gridWorld, boolean printEnabled) {
+    public static int repeated_backward_a_star(GridWorld gridWorld, boolean printEnabled) {
+        int expandedCells = 0;
         long startTime = System.currentTimeMillis();
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
@@ -559,6 +564,7 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
+            expandedCells += closedList.size();
         }
         if (printEnabled) {
             double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
@@ -567,13 +573,14 @@ public class AStarSearch {
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return true;
+            return expandedCells;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return false;
+        return expandedCells;
     }
 
-    public static boolean adaptive_a_star(GridWorld gridWorld, Boolean printEnabled) {
+    public static int adaptive_a_star(GridWorld gridWorld, Boolean printEnabled) {
+        int expandedCells = 0;
         long startTime = System.currentTimeMillis();
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
@@ -781,6 +788,7 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
+            expandedCells += closedList.size();
         }
         if (printEnabled) {
             double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
@@ -789,9 +797,9 @@ public class AStarSearch {
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return true;
+            return expandedCells;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return false;
+        return expandedCells;
     }
 }
