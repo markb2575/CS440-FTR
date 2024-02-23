@@ -5,6 +5,9 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner; 
 class FTR {
 
+    public static int expanded = 0;
+    public static int num_found = 0;
+
     public static void main(String[] args) {
         GridWorld[] gridWorlds;
         try {
@@ -44,61 +47,68 @@ class FTR {
                     break;
                 }
                 if (line.equals("a")) {
-                    long startTime = System.currentTimeMillis();
-                    int expandedCells = 0;
+                    expanded = 0;
+                    num_found = 0;
+                    double total_time = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("repeated_forward_a_star_favor_small_g: "+ (i + 1) + "/50");
-                        expandedCells += AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[i], false);
+                        total_time += AStarSearch.repeated_forward_a_star_favor_small_g(gridWorlds[i], false);
                     }
-                    double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
                     System.out.print("\r");
-                    System.out.print("Average Execution Time (in seconds) of repeated_forward_a_star_favor_small_g: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println("Average Execution Time (in seconds) of repeated_forward_a_star_favor_small_g: " + (total_time / num_found) + " Average Expanded Cells: " + (expanded / num_found));
+                    System.out.println("Found the target " + num_found + "/50 times");
                     System.out.println();
-                    startTime = System.currentTimeMillis();
-                    expandedCells = 0;
+
+                    expanded = 0;
+                    num_found = 0;
+                    total_time = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("repeated_forward_a_star_favor_large_g: "+ (i + 1) + "/50");
-                        expandedCells += AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[i], false);
+                        total_time += AStarSearch.repeated_forward_a_star_favor_large_g(gridWorlds[i], false);
                     }
-                    executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
                     System.out.print("\r");
-                    System.out.print("Average Execution Time (in seconds) of repeated_forward_a_star_favor_large_g: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println("Average Execution Time (in seconds) of repeated_forward_a_star_favor_large_g: " + (total_time / num_found) + " Average Expanded Cells: " + (expanded / num_found));
+                    System.out.println("Found the target " + num_found + "/50 times");
                     System.out.println();
-                    startTime = System.currentTimeMillis();
-                    expandedCells = 0;
+
+                    expanded = 0;
+                    num_found = 0;
+                    total_time = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("repeated_backward_a_star: "+ (i + 1) + "/50");
-                        expandedCells += AStarSearch.repeated_backward_a_star(gridWorlds[i], false);
+                        total_time += AStarSearch.repeated_backward_a_star(gridWorlds[i], false);
                     }
-                    executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
                     System.out.print("\r");
-                    System.out.print("Average Execution Time (in seconds) of repeated_backward_a_star: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println("Average Execution Time (in seconds) of repeated_backward_a_star: " + (total_time / num_found) + " Average Expanded Cells: " + (expanded / num_found));
+                    System.out.println("Found the target " + num_found + "/50 times");
                     System.out.println();
-                    startTime = System.currentTimeMillis();
-                    expandedCells = 0;
+
+                    expanded = 0;
+                    num_found = 0;
+                    total_time = 0;
                     for (int i = 0; i < 50; i ++) {
                         System.out.print("\r");
                         System.out.print("adaptive_a_star: "+ (i + 1) + "/50");
-                        expandedCells += AStarSearch.adaptive_a_star(gridWorlds[i], false);
+                        total_time += AStarSearch.adaptive_a_star(gridWorlds[i], false);
                     }
-                    executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
                     for (int i = 0; i < 50; i ++) {
                         gridWorlds[i].clearKnowledge();
                     }
                     System.out.print("\r");
-                    System.out.print("Average Execution Time (in seconds) of adaptive_a_star: " + (executionTime / 50) + " Average Expanded Cells: " + (expandedCells / 50));
+                    System.out.println("Average Execution Time (in seconds) of adaptive_a_star: " + (total_time / num_found) + " Average Expanded Cells: " + (expanded / num_found));
+                    System.out.println("Found the target " + num_found + "/50 times");
                     System.out.println();
                 } else {
                     try {

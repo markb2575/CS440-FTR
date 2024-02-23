@@ -5,11 +5,11 @@ public class AStarSearch {
     // Open list = priority queue
     // Closed list = hashmap
     
+    public static int count = 0;
 
-
-    public static int repeated_forward_a_star_favor_small_g(GridWorld gridWorld, boolean printEnabled) {
-        int expandedCells = 0;
+    public static double repeated_forward_a_star_favor_small_g(GridWorld gridWorld, boolean printEnabled) {
         long startTime = System.currentTimeMillis();
+        count = 0;
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
         if (!agent.canMoveUp()) {
@@ -183,23 +183,26 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
-            expandedCells += closedList.size();
+            count += closedList.size();
         }
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
+
         if (printEnabled) {
-            double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
             gridWorld.display();
             System.out.println("Execution time: " + executionTime + " seconds");
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return expandedCells;
+            FTR.expanded += count;
+            FTR.num_found ++;
+            return executionTime;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return expandedCells;
+        return 0;
     }
-    public static int repeated_forward_a_star_favor_large_g(GridWorld gridWorld, boolean printEnabled) {
-        int expandedCells = 0;
+    public static double repeated_forward_a_star_favor_large_g(GridWorld gridWorld, boolean printEnabled) {
         long startTime = System.currentTimeMillis();
+        count = 0;
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
         if (!agent.canMoveUp()) {
@@ -374,24 +377,26 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
-            expandedCells += closedList.size();
+            count += closedList.size();
         }
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
         if (printEnabled) {
-            double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
             gridWorld.display();
             System.out.println("Execution time: " + executionTime + " seconds");
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return expandedCells;
+            FTR.expanded += count;
+            FTR.num_found++;
+            return executionTime;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return expandedCells;
+        return 0;
     }
 
-    public static int repeated_backward_a_star(GridWorld gridWorld, boolean printEnabled) {
-        int expandedCells = 0;
+    public static double repeated_backward_a_star(GridWorld gridWorld, boolean printEnabled) {
         long startTime = System.currentTimeMillis();
+        count = 0;
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
         if (!agent.canMoveUp()) {
@@ -564,24 +569,26 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
-            expandedCells += closedList.size();
+            count += closedList.size();
         }
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
         if (printEnabled) {
-            double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
             gridWorld.display();
             System.out.println("Execution time: " + executionTime + " seconds");
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return expandedCells;
+            FTR.expanded += count;
+            FTR.num_found++;
+            return executionTime;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return expandedCells;
+        return 0;
     }
 
-    public static int adaptive_a_star(GridWorld gridWorld, Boolean printEnabled) {
-        int expandedCells = 0;
+    public static double adaptive_a_star(GridWorld gridWorld, Boolean printEnabled) {
         long startTime = System.currentTimeMillis();
+        count = 0;
         Agent agent = gridWorld.agent;
         // Because the agent is always in the bottom left corner at the start we only need to check if the agent can move up or right
         if (!agent.canMoveUp()) {
@@ -788,18 +795,20 @@ public class AStarSearch {
 //            if (line.equals("n")) {
 //                gridWorld.display_small();
 //            }
-            expandedCells += closedList.size();
+            count += closedList.size();
         }
+        double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
         if (printEnabled) {
-            double executionTime = (System.currentTimeMillis() - startTime) / 1000.0;
             gridWorld.display();
             System.out.println("Execution time: " + executionTime + " seconds");
         }
         if (agent.getX() == 100 && agent.getY() == 100) {
             if (printEnabled) System.out.println("Found target.");
-            return expandedCells;
+            FTR.expanded += count;
+            FTR.num_found++;
+            return executionTime;
         }
         if (printEnabled) System.out.println("Could not find target.");
-        return expandedCells;
+        return 0;
     }
 }
